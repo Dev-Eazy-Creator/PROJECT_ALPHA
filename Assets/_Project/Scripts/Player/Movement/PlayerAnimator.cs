@@ -1,5 +1,6 @@
 // Drives Animator parameters based on player state. Single source of truth for animation state.
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ProjectAlpha
 {
@@ -10,12 +11,13 @@ namespace ProjectAlpha
         [SerializeField] private PlayerJump jump;
         [SerializeField] private PlayerClimb climb;
         [SerializeField] private PlayerMovement movement;
-        [SerializeField] private VocationManager vocationManager;
+        [FormerlySerializedAs("vocationManager")]
+        [SerializeField] private JobManager jobManager;
 
         private static readonly int MoveSpeedHash = Animator.StringToHash("moveSpeed");
         private static readonly int IsGroundedHash = Animator.StringToHash("isGrounded");
         private static readonly int IsClimbingHash = Animator.StringToHash("isClimbing");
-        private static readonly int VocationIndexHash = Animator.StringToHash("vocationIndex");
+        private static readonly int JobIndexHash = Animator.StringToHash("jobIndex");
         // Extra param so the Jump_Rise / Jump_Fall states can branch on ascent vs. descent.
         private static readonly int VerticalVelocityHash = Animator.StringToHash("verticalVelocity");
         // Splits locomotion into Walk vs. Run.
@@ -38,26 +40,26 @@ namespace ProjectAlpha
 
         private void OnEnable()
         {
-            if (vocationManager != null)
+            if (jobManager != null)
             {
-                vocationManager.OnVocationChanged += HandleVocationChanged;
+                jobManager.OnJobChanged += HandleJobChanged;
             }
         }
 
         private void OnDisable()
         {
-            if (vocationManager != null)
+            if (jobManager != null)
             {
-                vocationManager.OnVocationChanged -= HandleVocationChanged;
+                jobManager.OnJobChanged -= HandleJobChanged;
             }
         }
 
         private void Start()
         {
-            // Apply the starting vocation's override controller and index.
-            if (vocationManager != null && vocationManager.CurrentVocation != null)
+            // Apply the starting job's override controller and index.
+            if (jobManager != null && jobManager.CurrentJob != null)
             {
-                HandleVocationChanged(vocationManager.CurrentVocation);
+                HandleJobChanged(jobManager.CurrentJob);
             }
         }
 
@@ -75,18 +77,18 @@ namespace ProjectAlpha
             animator.SetBool(IsSprintingHash, movement != null && movement.IsSprinting);
         }
 
-        private void HandleVocationChanged(VocationData newVocation)
+        private void HandleJobChanged(JobData newJob)
         {
-            if (animator == null || newVocation == null)
+            if (animator == null || newJob == null)
             {
                 return;
             }
 
-            animator.SetInteger(VocationIndexHash, (int)newVocation.Vocation);
+            animator.SetInteger(JobIndexHash, (int)newJob.Job);
 
-            if (newVocation.CombatAnimatorOverride != null)
+            if (newJob.CombatAnimatorOverride != null)
             {
-                animator.runtimeAnimatorController = newVocation.CombatAnimatorOverride;
+                animator.runtimeAnimatorController = newJob.CombatAnimatorOverride;
             }
         }
     }

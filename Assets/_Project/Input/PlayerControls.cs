@@ -120,7 +120,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""SwitchVocation"",
+                    ""name"": ""SwitchJob"",
                     ""type"": ""Button"",
                     ""id"": ""a1b2c3d4-0000-4000-8000-000000000104"",
                     ""expectedControlType"": ""Button"",
@@ -256,7 +256,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KBM"",
-                    ""action"": ""SwitchVocation"",
+                    ""action"": ""SwitchJob"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -267,7 +267,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Xbox"",
-                    ""action"": ""SwitchVocation"",
+                    ""action"": ""SwitchJob"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -343,7 +343,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
-        m_Player_SwitchVocation = m_Player.FindAction("SwitchVocation", throwIfNotFound: true);
+        m_Player_SwitchJob = m_Player.FindAction("SwitchJob", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         // Combat
         m_Combat = asset.FindActionMap("Combat", throwIfNotFound: true);
@@ -434,7 +434,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Interact;
-    private readonly InputAction m_Player_SwitchVocation;
+    private readonly InputAction m_Player_SwitchJob;
     private readonly InputAction m_Player_Sprint;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
@@ -460,9 +460,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         /// <summary>
-        /// Provides access to the underlying input action "Player/SwitchVocation".
+        /// Provides access to the underlying input action "Player/SwitchJob".
         /// </summary>
-        public InputAction @SwitchVocation => m_Wrapper.m_Player_SwitchVocation;
+        public InputAction @SwitchJob => m_Wrapper.m_Player_SwitchJob;
         /// <summary>
         /// Provides access to the underlying input action "Player/Sprint".
         /// </summary>
@@ -502,9 +502,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
-            @SwitchVocation.started += instance.OnSwitchVocation;
-            @SwitchVocation.performed += instance.OnSwitchVocation;
-            @SwitchVocation.canceled += instance.OnSwitchVocation;
+            @SwitchJob.started += instance.OnSwitchJob;
+            @SwitchJob.performed += instance.OnSwitchJob;
+            @SwitchJob.canceled += instance.OnSwitchJob;
             @Sprint.started += instance.OnSprint;
             @Sprint.performed += instance.OnSprint;
             @Sprint.canceled += instance.OnSprint;
@@ -528,9 +528,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
-            @SwitchVocation.started -= instance.OnSwitchVocation;
-            @SwitchVocation.performed -= instance.OnSwitchVocation;
-            @SwitchVocation.canceled -= instance.OnSwitchVocation;
+            @SwitchJob.started -= instance.OnSwitchJob;
+            @SwitchJob.performed -= instance.OnSwitchJob;
+            @SwitchJob.canceled -= instance.OnSwitchJob;
             @Sprint.started -= instance.OnSprint;
             @Sprint.performed -= instance.OnSprint;
             @Sprint.canceled -= instance.OnSprint;
@@ -792,12 +792,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInteract(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "SwitchVocation" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "SwitchJob" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnSwitchVocation(InputAction.CallbackContext context);
+        void OnSwitchJob(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Sprint" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

@@ -34,7 +34,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SwitchVocation",
+                    "name": "SwitchJob",
                     "type": "Button",
                     "id": "a1b2c3d4-0000-4000-8000-000000000104",
                     "expectedControlType": "Button",
@@ -170,7 +170,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KBM",
-                    "action": "SwitchVocation",
+                    "action": "SwitchJob",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -181,7 +181,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Xbox",
-                    "action": "SwitchVocation",
+                    "action": "SwitchJob",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -4,7 +4,7 @@ namespace ProjectAlpha
 {
     public interface IWeapon
     {
-        VocationType WeaponVocationType { get; }
+        JobType WeaponJobType { get; }
         void OnEquip();
         void OnUnequip();
     }

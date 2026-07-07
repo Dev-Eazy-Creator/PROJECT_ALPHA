@@ -17,7 +17,7 @@ namespace ProjectAlpha
         public event Action OnJumpCanceled;
         public event Action OnInteractStarted;
         public event Action OnInteractCanceled;
-        public event Action OnSwitchVocationStarted;
+        public event Action OnSwitchJobStarted;
         public event Action OnSprintStarted;
         public event Action OnSprintCanceled;
 
@@ -25,7 +25,7 @@ namespace ProjectAlpha
         private InputAction moveAction;
         private InputAction jumpAction;
         private InputAction interactAction;
-        private InputAction switchVocationAction;
+        private InputAction switchJobAction;
         private InputAction sprintAction;
 
         private void OnEnable()
@@ -40,7 +40,7 @@ namespace ProjectAlpha
             moveAction = playerMap.FindAction("Move", throwIfNotFound: true);
             jumpAction = playerMap.FindAction("Jump", throwIfNotFound: true);
             interactAction = playerMap.FindAction("Interact", throwIfNotFound: true);
-            switchVocationAction = playerMap.FindAction("SwitchVocation", throwIfNotFound: true);
+            switchJobAction = playerMap.FindAction("SwitchJob", throwIfNotFound: true);
             // Defensive: Sprint may be absent if the asset predates this action / hasn't reimported.
             sprintAction = playerMap.FindAction("Sprint", throwIfNotFound: false);
 
@@ -50,7 +50,7 @@ namespace ProjectAlpha
             jumpAction.canceled += HandleJumpCanceled;
             interactAction.started += HandleInteractStarted;
             interactAction.canceled += HandleInteractCanceled;
-            switchVocationAction.started += HandleSwitchVocationStarted;
+            switchJobAction.started += HandleSwitchJobStarted;
             if (sprintAction != null)
             {
                 sprintAction.started += HandleSprintStarted;
@@ -73,7 +73,7 @@ namespace ProjectAlpha
             jumpAction.canceled -= HandleJumpCanceled;
             interactAction.started -= HandleInteractStarted;
             interactAction.canceled -= HandleInteractCanceled;
-            switchVocationAction.started -= HandleSwitchVocationStarted;
+            switchJobAction.started -= HandleSwitchJobStarted;
             if (sprintAction != null)
             {
                 sprintAction.started -= HandleSprintStarted;
@@ -90,7 +90,7 @@ namespace ProjectAlpha
         private void HandleJumpCanceled(InputAction.CallbackContext ctx) => OnJumpCanceled?.Invoke();
         private void HandleInteractStarted(InputAction.CallbackContext ctx) => OnInteractStarted?.Invoke();
         private void HandleInteractCanceled(InputAction.CallbackContext ctx) => OnInteractCanceled?.Invoke();
-        private void HandleSwitchVocationStarted(InputAction.CallbackContext ctx) => OnSwitchVocationStarted?.Invoke();
+        private void HandleSwitchJobStarted(InputAction.CallbackContext ctx) => OnSwitchJobStarted?.Invoke();
         private void HandleSprintStarted(InputAction.CallbackContext ctx) => OnSprintStarted?.Invoke();
         private void HandleSprintCanceled(InputAction.CallbackContext ctx) => OnSprintCanceled?.Invoke();
     }

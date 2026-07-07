@@ -534,7 +534,7 @@ GameObject:
   - component: {fileID: 1084060453}
   - component: {fileID: 1084060452}
   m_Layer: 0
-  m_Name: VocationManager
+  m_Name: JobManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -552,14 +552,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 590e4ef785065194f97619186b5616b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectAlpha.VocationManager
-  allVocations:
+  allJobs:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  startingVocation: {fileID: 0}
+  startingJob: {fileID: 0}
 --- !u!4 &1084060453
 Transform:
   m_ObjectHideFlags: 0
@@ -700,11 +700,11 @@ PrefabInstance:
       value: Player_Warrior
       objectReference: {fileID: 0}
     - target: {fileID: 2730470903116550587, guid: a6efcbe2e8ae93b4ba16bb31d98b140f, type: 3}
-      propertyPath: vocationManager
+      propertyPath: jobManager
       value: 
       objectReference: {fileID: 1084060452}
     - target: {fileID: 7429816067160415509, guid: a6efcbe2e8ae93b4ba16bb31d98b140f, type: 3}
-      propertyPath: vocationManager
+      propertyPath: jobManager
       value: 
       objectReference: {fileID: 1084060452}
     - target: {fileID: 8345315760122040446, guid: a6efcbe2e8ae93b4ba16bb31d98b140f, type: 3}

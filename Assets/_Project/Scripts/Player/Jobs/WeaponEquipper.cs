@@ -1,44 +1,46 @@
-// Instantiates and attaches the correct weapon prefab when the vocation changes.
+// Instantiates and attaches the correct weapon prefab when the job changes.
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ProjectAlpha
 {
     public class WeaponEquipper : MonoBehaviour
     {
-        [SerializeField] private VocationManager vocationManager;
+        [FormerlySerializedAs("vocationManager")]
+        [SerializeField] private JobManager jobManager;
         [SerializeField] private Transform weaponAnchor;
 
         private void Awake()
         {
-            if (vocationManager != null)
+            if (jobManager != null)
             {
-                vocationManager.OnVocationChanged += HandleVocationChanged;
+                jobManager.OnJobChanged += HandleJobChanged;
             }
         }
 
         private void OnDestroy()
         {
-            if (vocationManager != null)
+            if (jobManager != null)
             {
-                vocationManager.OnVocationChanged -= HandleVocationChanged;
+                jobManager.OnJobChanged -= HandleJobChanged;
             }
         }
 
         private void Start()
         {
-            // Set up the starting weapon from the current vocation.
-            if (vocationManager != null)
+            // Set up the starting weapon from the current job.
+            if (jobManager != null)
             {
-                Equip(vocationManager.CurrentVocation);
+                Equip(jobManager.CurrentJob);
             }
         }
 
-        private void HandleVocationChanged(VocationData newVocation)
+        private void HandleJobChanged(JobData newJob)
         {
-            Equip(newVocation);
+            Equip(newJob);
         }
 
-        private void Equip(VocationData vocation)
+        private void Equip(JobData job)
         {
             if (weaponAnchor == null)
             {
@@ -51,13 +53,13 @@ namespace ProjectAlpha
                 Destroy(weaponAnchor.GetChild(i).gameObject);
             }
 
-            if (vocation == null || vocation.WeaponPrefab == null)
+            if (job == null || job.WeaponPrefab == null)
             {
                 // Null weapon prefab is handled gracefully — nothing to equip.
                 return;
             }
 
-            GameObject weapon = Instantiate(vocation.WeaponPrefab, weaponAnchor);
+            GameObject weapon = Instantiate(job.WeaponPrefab, weaponAnchor);
             weapon.transform.localPosition = Vector3.zero;
             weapon.transform.localRotation = Quaternion.identity;
 
