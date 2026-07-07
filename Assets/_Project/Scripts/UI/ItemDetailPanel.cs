@@ -38,6 +38,9 @@ namespace ProjectAlpha
         private static readonly Color JobOk = new Color(0.85f, 0.72f, 0.29f);      // requirement met
         private static readonly Color JobLocked = new Color(0.90f, 0.35f, 0.35f);  // current job can't equip
 
+        // Reused across hovers so building the stat table doesn't allocate a StringBuilder each time.
+        private static readonly StringBuilder Builder = new StringBuilder(256);
+
         // Core stats shown, in order, as current ► projected.
         private static readonly AttributeType[] CoreStats =
         {
@@ -165,7 +168,8 @@ namespace ProjectAlpha
                 candidateMods = new List<StatModifier>(item.BuildModifiers());
             }
 
-            var sb = new StringBuilder();
+            StringBuilder sb = Builder;
+            sb.Clear();
             foreach (AttributeType attr in CoreStats)
             {
                 float current = stats != null ? stats.GetValue(attr) : 0f;

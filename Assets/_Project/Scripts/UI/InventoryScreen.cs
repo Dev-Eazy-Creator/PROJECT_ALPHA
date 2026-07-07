@@ -3,6 +3,7 @@
 // equipped ones badged) filtered by slot. Hover (mouse) or focus (controller) an item to inspect it;
 // click (mouse) or Submit/A equips or unequips it. Items keep a STABLE slot->name order so equipping
 // never reorders them, and cells update in place (not rebuilt) when only equip state changes.
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -37,6 +38,8 @@ namespace ProjectAlpha
         private readonly List<BagItemCell> spawnedCells = new List<BagItemCell>();
         private readonly List<ItemInstance> displayedItems = new List<ItemInstance>();
         private readonly List<ItemInstance> scratch = new List<ItemInstance>();
+        private readonly HashSet<ItemInstance> equippedSet = new HashSet<ItemInstance>();
+        private static readonly Comparison<ItemInstance> ItemOrder = CompareItems;
         private GearFilterButton currentFilter;
         private ItemInstance detailItem;
         private bool isPaused;
@@ -248,6 +251,7 @@ namespace ProjectAlpha
             }
 
             scratch.Clear();
+            equippedSet.Clear();
             if (inventory != null)
             {
                 foreach (ItemInstance item in inventory.Items)
@@ -262,13 +266,19 @@ namespace ProjectAlpha
             {
                 foreach (KeyValuePair<EquipmentSlot, ItemInstance> pair in equipment.Equipped)
                 {
-                    if (Include(pair.Value))
+                    ItemInstance equippedItem = pair.Value;
+                    if (equippedItem == null)
                     {
-                        scratch.Add(pair.Value);
+                        continue;
+                    }
+                    equippedSet.Add(equippedItem);   // O(1) equipped lookup for the bind loop below
+                    if (Include(equippedItem))
+                    {
+                        scratch.Add(equippedItem);
                     }
                 }
             }
-            scratch.Sort(CompareItems);
+            scratch.Sort(ItemOrder);
 
             if (!SameSequence(scratch, displayedItems))
             {
@@ -292,7 +302,7 @@ namespace ProjectAlpha
             for (int i = 0; i < spawnedCells.Count; i++)
             {
                 ItemInstance item = displayedItems[i];
-                spawnedCells[i].Bind(item, IsEquipped(item, out _), OnFocusItem, OnEquipItem);
+                spawnedCells[i].Bind(item, equippedSet.Contains(item), OnFocusItem, OnEquipItem);
             }
         }
 
