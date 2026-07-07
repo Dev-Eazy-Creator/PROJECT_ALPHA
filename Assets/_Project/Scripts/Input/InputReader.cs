@@ -20,6 +20,8 @@ namespace ProjectAlpha
         public event Action OnSwitchJobStarted;
         public event Action OnSprintStarted;
         public event Action OnSprintCanceled;
+        public event Action OnToggleInventoryStarted;
+        public event Action OnConfirmEquipStarted;
 
         private InputActionMap playerMap;
         private InputAction moveAction;
@@ -27,6 +29,10 @@ namespace ProjectAlpha
         private InputAction interactAction;
         private InputAction switchJobAction;
         private InputAction sprintAction;
+
+        private InputActionMap uiMap;
+        private InputAction toggleInventoryAction;
+        private InputAction confirmEquipAction;
 
         private void OnEnable()
         {
@@ -58,6 +64,25 @@ namespace ProjectAlpha
             }
 
             playerMap.Enable();
+
+            // The UI map ships alongside Player. Defensive: it may be empty/absent in older assets.
+            uiMap = actions.FindActionMap("UI", throwIfNotFound: false);
+            if (uiMap != null)
+            {
+                toggleInventoryAction = uiMap.FindAction("ToggleInventory", throwIfNotFound: false);
+                if (toggleInventoryAction != null)
+                {
+                    toggleInventoryAction.started += HandleToggleInventoryStarted;
+                }
+
+                confirmEquipAction = uiMap.FindAction("ConfirmEquip", throwIfNotFound: false);
+                if (confirmEquipAction != null)
+                {
+                    confirmEquipAction.started += HandleConfirmEquipStarted;
+                }
+
+                uiMap.Enable();
+            }
         }
 
         private void OnDisable()
@@ -82,6 +107,41 @@ namespace ProjectAlpha
 
             playerMap.Disable();
             playerMap = null;
+
+            if (uiMap != null)
+            {
+                if (toggleInventoryAction != null)
+                {
+                    toggleInventoryAction.started -= HandleToggleInventoryStarted;
+                }
+
+                if (confirmEquipAction != null)
+                {
+                    confirmEquipAction.started -= HandleConfirmEquipStarted;
+                }
+
+                uiMap.Disable();
+                uiMap = null;
+            }
+        }
+
+        // Lets the inventory screen suspend gameplay input while it's open, so E / gamepad A drive the
+        // menu's equip action instead of also firing Interact / Jump.
+        public void SetGameplayInputEnabled(bool value)
+        {
+            if (playerMap == null)
+            {
+                return;
+            }
+
+            if (value)
+            {
+                playerMap.Enable();
+            }
+            else
+            {
+                playerMap.Disable();
+            }
         }
 
         // Fires on performed and canceled so gameplay always sees the latest vector (zero on release).
@@ -93,5 +153,7 @@ namespace ProjectAlpha
         private void HandleSwitchJobStarted(InputAction.CallbackContext ctx) => OnSwitchJobStarted?.Invoke();
         private void HandleSprintStarted(InputAction.CallbackContext ctx) => OnSprintStarted?.Invoke();
         private void HandleSprintCanceled(InputAction.CallbackContext ctx) => OnSprintCanceled?.Invoke();
+        private void HandleToggleInventoryStarted(InputAction.CallbackContext ctx) => OnToggleInventoryStarted?.Invoke();
+        private void HandleConfirmEquipStarted(InputAction.CallbackContext ctx) => OnConfirmEquipStarted?.Invoke();
     }
 }

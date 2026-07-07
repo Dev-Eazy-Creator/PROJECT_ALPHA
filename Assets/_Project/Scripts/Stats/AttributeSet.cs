@@ -46,6 +46,13 @@ namespace ProjectAlpha
             return attribute != null ? attribute.Value : 0f;
         }
 
+        // "What if" value for one attribute with a modifier source swapped out for another set. Read-only.
+        public float PreviewValue(AttributeType type, object removeSource, IEnumerable<StatModifier> addModifiers)
+        {
+            Attribute attribute = Get(type);
+            return attribute != null ? attribute.PreviewValue(removeSource, addModifiers) : 0f;
+        }
+
         public void AddModifier(StatModifier modifier)
         {
             if (modifier == null)

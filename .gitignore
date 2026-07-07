@@ -83,3 +83,6 @@ crashlytics-build.properties
 /[Aa]ssets/StylizedCharacter.meta
 /[Aa]ssets/Honeti/
 /[Aa]ssets/Honeti.meta
+# Packs are now grouped under Assets/Third-Party/ (StylizedCharacter model, Honeti/AriaGUI UI).
+/[Aa]ssets/Third-Party/
+/[Aa]ssets/Third-Party.meta

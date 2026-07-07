@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Warrior_Helm
   m_EditorClassIdentifier: Assembly-CSharp::ProjectAlpha.ArmorData
   DisplayName: Warrior Helm
-  Icon: {fileID: 0}
-  Description:
+  Icon: {fileID: 21300000, guid: 81f5de6ff831c16498ffc75478cad959, type: 3}
+  Description: "After rebuilding: is the three-column split and the current \u25BA
+    new panel the direction you wanted? If so, the natural next polish is real slot
+    icons on the rail and item icons in the grid."
   DropWeight: 1
   Slot: 2
-  AllowedJobs:
-  - 0
+  AllowedJobs: 00000000
   Modifiers:
   - Attribute: 0
     Type: 0
