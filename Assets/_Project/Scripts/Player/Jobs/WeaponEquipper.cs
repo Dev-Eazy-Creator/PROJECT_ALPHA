@@ -1,4 +1,6 @@
-// Instantiates and attaches the correct weapon prefab when the job changes.
+// Legacy Part 1 weapon spawner. Superseded by EquipmentManager (Part 3), which spawns the
+// equipped weapon's prefab. Disabled by default; enable spawnWeaponOnJobChange only if using the
+// old job-driven weapon without the gear system.
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -9,10 +11,12 @@ namespace ProjectAlpha
         [FormerlySerializedAs("vocationManager")]
         [SerializeField] private JobManager jobManager;
         [SerializeField] private Transform weaponAnchor;
+        [Tooltip("Part 3 EquipmentManager owns weapon spawning. Leave OFF unless not using gear.")]
+        [SerializeField] private bool spawnWeaponOnJobChange = false;
 
         private void Awake()
         {
-            if (jobManager != null)
+            if (spawnWeaponOnJobChange && jobManager != null)
             {
                 jobManager.OnJobChanged += HandleJobChanged;
             }
@@ -28,8 +32,8 @@ namespace ProjectAlpha
 
         private void Start()
         {
-            // Set up the starting weapon from the current job.
-            if (jobManager != null)
+            // Set up the starting weapon from the current job (only when this legacy spawner is enabled).
+            if (spawnWeaponOnJobChange && jobManager != null)
             {
                 Equip(jobManager.CurrentJob);
             }
