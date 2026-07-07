@@ -1,17 +1,18 @@
 # PROJECT_ALPHA — Part 1 (Core Systems)
 
-## How to build Part 1
-1. Open the project in Unity 6 and let it finish importing (it will pull **Cinemachine 3.1.x**,
+## Running the project
+1. Open the project in Unity 6 and let it finish importing (it pulls **Cinemachine 3.1.x**,
    added to `Packages/manifest.json`). Wait for compilation to finish with no console errors.
-2. In the menu bar, click **Project Alpha ▸ Build Part 1**.
-3. Open `Assets/_Project/Scenes/Scene_TestArena.unity` and press **Play**.
+2. Open `Assets/_Project/Scenes/Scene_TestArena.unity` and press **Play**.
 
-The menu command generates every non-script asset programmatically: folders, `Ground`/`Climbable`
-tags, the `PlayerControls` input asset wiring, `InputReader_Data`, the 6 `VocationData` assets,
-`Player_Base_AC` + the 6 `_AOC` override controllers, the weapon and player prefabs, and the test
-scene (ground, climbable wall, player, VocationManager, Cinemachine camera, light).
+All Part 1 assets are already built and committed: the `Ground`/`Climbable` tags, the `PlayerControls`
+input asset + `InputReader_Data`, the 6 `VocationData` assets, `Player_Base_AC` + the 6 `_AOC`
+override controllers, the weapon and player prefabs, and the test scene (ground, climbable wall,
+player, VocationManager, Cinemachine camera, light).
 
-Re-running the command rebuilds everything cleanly (existing generated assets are replaced).
+> These were originally produced by a one-time editor tool (`ProjectAlphaSetup`, menu *Project Alpha ▸
+> Build Part 1*), removed after setup to avoid overwriting the customized prefab/model/scene. It
+> remains in git history (commit `7abcfef`) if it is ever needed again.
 
 ## Architecture notes / decisions made
 These resolve ambiguities or internal conflicts in the GDD. Flagged here per the GDD's

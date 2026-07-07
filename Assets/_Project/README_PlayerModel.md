@@ -36,9 +36,6 @@ The model should have an **Animator** component with the **Avatar** assigned (N-
 ## 7. Wire the animation clips into the Base controller
 - Make sure each clip is **Humanoid**: select the clip's FBX → Rig → Humanoid → Apply.
   Prefer **in-place** clips (e.g. Mixamo "In Place"); set Idle/Walk/Run/Climb to **Loop Time**.
-- If your controller predates the Walk/Run split, run **Project Alpha ▸ Rebuild Base Animator
-  Controller** once. It adds the `Walk` state and `isSprinting` parameter and re-applies any clips
-  you already assigned (by state name) — only `Walk` comes back empty.
 - Open `Assets/_Project/AnimatorControllers/Base/Player_Base_AC` (Animator window).
 - Click each state → Inspector → assign **Motion**:
   | State | Clip | Driven by |
@@ -58,7 +55,8 @@ The model should have an **Animator** component with the **Avatar** assigned (N-
 
 ---
 
-### ⚠ Do not re-run "Project Alpha ▸ Build Part 1" after swapping the model
-That command rebuilds `Player_Warrior` with the placeholder capsule and would overwrite your model.
-If you want the generator to bake the real model in instead, share the imported model's asset path
-and it can be wired into the build tool.
+### Note
+The one-time build tool has been removed, so nothing will overwrite `Player_Warrior` — your model
+edits are safe. The `StylizedCharacter` art pack is intentionally **not** committed to git (see the
+project `.gitignore`); re-import it from the Asset Store on a fresh clone and the prefab reconnects
+by GUID.

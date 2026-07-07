@@ -76,3 +76,7 @@ crashlytics-build.properties
 
 # VS Code
 .vscode/
+
+# Third-party art pack (11 GB) — re-import from the Asset Store; not version-controlled.
+/[Aa]ssets/StylizedCharacter/
+/[Aa]ssets/StylizedCharacter.meta
