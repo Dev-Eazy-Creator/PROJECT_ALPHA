@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(gh --version)",
+      "PowerShell(gh auth status 2>$null)",
+      "PowerShell(git -C \"C:\\\\Unity Projects\\\\PROJECT_ALPHA\" init -b main)",
+      "PowerShell(git lfs version)",
+      "PowerShell(git config --global user.name)",
+      "PowerShell(git config --global user.email)",
+      "PowerShell(git config --global user.name \"Dev_Eazy\")",
+      "PowerShell(git config --global user.email \"kylemogg1996@gmail.com\")",
+      "PowerShell(git -C \"C:\\\\Unity Projects\\\\PROJECT_ALPHA\" lfs install)",
+      "PowerShell(winget install --id GitHub.cli --silent --accept-source-agreements --accept-package-agreements)",
+      "PowerShell(cd \"C:\\\\Unity Projects\\\\PROJECT_ALPHA\"; git add -A; Write-Output \"---STAGED COUNT---\"; \\(git diff --cached --name-only | Measure-Object -Line\\).Lines; Write-Output \"---LFS TRACKED \\(sample\\)---\"; git lfs ls-files | Select-Object -First 10)"
+    ]
+  }
+}
