@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4668c7087f57d3a4cb9bc58024d51f53, type: 3}
+  m_Name: Vocation5_Data
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectAlpha.VocationData
+  Vocation: 4
+  DisplayName: Vocation5
+  WeaponPrefab: {fileID: 0}
+  CombatAnimatorOverride: {fileID: 22100000, guid: 7588e9246fa56f747a7a01edc5eb9fbe, type: 2}
+  MoveSpeedModifier: 1
