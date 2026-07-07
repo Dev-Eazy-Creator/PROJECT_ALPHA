@@ -46,36 +46,39 @@ namespace ProjectAlpha
                 return;
             }
 
-            GUILayout.BeginArea(new Rect(10, 10, 320, 260), GUI.skin.box);
-            GUILayout.Label("<b>STATS DEBUG</b>", RichLabel());
+            GUIStyle style = LabelStyle();
+
+            GUILayout.BeginArea(new Rect(10, 10, 470, 540), GUI.skin.box);
+            GUILayout.Label("<b>STATS DEBUG</b>", style);
 
             if (staminaController != null)
             {
                 ResourcePool stamina = staminaController.Stamina;
-                GUILayout.Label($"Stamina: {stamina.Current:0} / {stamina.Max:0}");
+                GUILayout.Label($"Stamina: {stamina.Current:0} / {stamina.Max:0}", style);
                 DrawBar(stamina.Normalized, new Color(0.3f, 0.8f, 0.3f));
             }
 
-            GUILayout.Space(4);
-            GUILayout.Label($"IsSprinting:  {(movement != null ? movement.IsSprinting.ToString() : "n/a")}");
-            GUILayout.Label($"IsClimbing:   {(climb != null ? climb.IsClimbing.ToString() : "n/a")}");
-            GUILayout.Label($"SprintAllowed:{(movement != null ? movement.SprintAllowed.ToString() : "n/a")}");
+            GUILayout.Space(6);
+            GUILayout.Label($"IsSprinting:   {(movement != null ? movement.IsSprinting.ToString() : "n/a")}", style);
+            GUILayout.Label($"IsClimbing:    {(climb != null ? climb.IsClimbing.ToString() : "n/a")}", style);
+            GUILayout.Label($"SprintAllowed: {(movement != null ? movement.SprintAllowed.ToString() : "n/a")}", style);
 
-            GUILayout.Space(4);
-            GUILayout.Label($"MoveSpeed:        {stats.GetValue(AttributeType.MoveSpeed):0.##}");
-            GUILayout.Label($"MaxStamina:       {stats.GetValue(AttributeType.MaxStamina):0.##}");
-            GUILayout.Label($"StaminaRegenRate: {stats.GetValue(AttributeType.StaminaRegenRate):0.##}");
-            GUILayout.Label($"PhysicalAttack:   {stats.GetValue(AttributeType.PhysicalAttack):0.##}");
-            GUILayout.Label($"MaxHealth:        {stats.GetValue(AttributeType.MaxHealth):0.##}");
+            GUILayout.Space(6);
+            GUILayout.Label($"MoveSpeed:        {stats.GetValue(AttributeType.MoveSpeed):0.##}", style);
+            GUILayout.Label($"MaxStamina:       {stats.GetValue(AttributeType.MaxStamina):0.##}", style);
+            GUILayout.Label($"StaminaRegenRate: {stats.GetValue(AttributeType.StaminaRegenRate):0.##}", style);
+            GUILayout.Label($"PhysicalAttack:   {stats.GetValue(AttributeType.PhysicalAttack):0.##}", style);
+            GUILayout.Label($"PhysicalDefense:  {stats.GetValue(AttributeType.PhysicalDefense):0.##}", style);
+            GUILayout.Label($"MaxHealth:        {stats.GetValue(AttributeType.MaxHealth):0.##}", style);
 
-            GUILayout.Space(4);
-            GUILayout.Label($"[{addModifierKey}] +50% MaxStamina   [{removeModifierKey}] clear debug mods");
+            GUILayout.Space(6);
+            GUILayout.Label($"[{addModifierKey}] +50% MaxStamina   [{removeModifierKey}] clear debug mods", style);
             GUILayout.EndArea();
         }
 
         private static void DrawBar(float normalized, Color fill)
         {
-            Rect rect = GUILayoutUtility.GetRect(300, 14);
+            Rect rect = GUILayoutUtility.GetRect(430, 20);
             GUI.color = new Color(0f, 0f, 0f, 0.4f);
             GUI.DrawTexture(rect, Texture2D.whiteTexture);
             GUI.color = fill;
@@ -84,9 +87,15 @@ namespace ProjectAlpha
             GUI.color = Color.white;
         }
 
-        private static GUIStyle RichLabel()
+        private GUIStyle cachedStyle;
+
+        private GUIStyle LabelStyle()
         {
-            return new GUIStyle(GUI.skin.label) { richText = true };
+            if (cachedStyle == null)
+            {
+                cachedStyle = new GUIStyle(GUI.skin.label) { richText = true, fontSize = 16 };
+            }
+            return cachedStyle;
         }
     }
 }

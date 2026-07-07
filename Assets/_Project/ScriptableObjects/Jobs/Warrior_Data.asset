@@ -17,3 +17,28 @@ MonoBehaviour:
   WeaponPrefab: {fileID: 6074973716218679444, guid: d94f616eb8e89fc4c9b23dd9b158e096, type: 3}
   CombatAnimatorOverride: {fileID: 22100000, guid: 0a87764c71170b9499e8aace8149b4ab, type: 2}
   MoveSpeedModifier: 1
+  BaseStats:
+  - Attribute: 0
+    BaseValue: 100
+  - Attribute: 1
+    BaseValue: 100
+  - Attribute: 2
+    BaseValue: 25
+  - Attribute: 3
+    BaseValue: 15
+  - Attribute: 4
+    BaseValue: 20
+  - Attribute: 5
+    BaseValue: 15
+  - Attribute: 6
+    BaseValue: 0
+  - Attribute: 7
+    BaseValue: 10
+  - Attribute: 8
+    BaseValue: 5
+  - Attribute: 9
+    BaseValue: 20
+  - Attribute: 10
+    BaseValue: 15
+  - Attribute: 11
+    BaseValue: 2.5

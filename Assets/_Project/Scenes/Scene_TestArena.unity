@@ -396,6 +396,52 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1 &618375694
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 618375696}
+  - component: {fileID: 618375695}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &618375695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 618375694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1362381992746a14c8313045969d4493, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectAlpha.DebugCombatTester
+  playerStats: {fileID: 2009302311}
+  target: {fileID: 818079464}
+--- !u!4 &618375696
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 618375694}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.90653, y: 0, z: 1.11656}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &746200781
 GameObject:
   m_ObjectHideFlags: 0
@@ -523,6 +569,230 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &818079463
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 818079471}
+  - component: {fileID: 818079470}
+  - component: {fileID: 818079469}
+  - component: {fileID: 818079468}
+  - component: {fileID: 818079466}
+  - component: {fileID: 818079465}
+  - component: {fileID: 818079464}
+  - component: {fileID: 818079467}
+  m_Layer: 0
+  m_Name: Enemy_Dummy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &818079464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 818079463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8944092671d893648a18524071a5c48f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectAlpha.Damageable
+  health: {fileID: 818079465}
+--- !u!114 &818079465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 818079463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb1aa84e3e5c58041abceb392fba94f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectAlpha.HealthController
+  stats: {fileID: 818079466}
+--- !u!114 &818079466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 818079463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75b7a1941781d5a4c90c6e0b1e1f11a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectAlpha.CharacterStats
+  jobManager: {fileID: 0}
+  baseStatsWhenNoJob:
+  - Attribute: 0
+    BaseValue: 200
+  - Attribute: 7
+    BaseValue: 10
+--- !u!114 &818079467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 818079463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6e937fa3b45d854db7c405fcea4f924, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectAlpha.DummyHealthReset
+  health: {fileID: 818079465}
+  stats: {fileID: 818079466}
+--- !u!65 &818079468
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 818079463}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &818079469
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 818079463}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &818079470
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 818079463}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &818079471
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 818079463}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.28, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1076978285
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1076978287}
+  - component: {fileID: 1076978286}
+  m_Layer: 0
+  m_Name: Debug_Stats
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1076978286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076978285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb7b23d003461964c8ad2d74d807e9f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectAlpha.StatsDebugReadout
+  stats: {fileID: 2009302311}
+  staminaController: {fileID: 2009302309}
+  movement: {fileID: 2009302304}
+  climb: {fileID: 2009302303}
+  addModifierKey: 27
+  removeModifierKey: 28
+--- !u!4 &1076978287
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076978285}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1084060451
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,7 +829,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  startingJob: {fileID: 0}
+  startingJob: {fileID: 11400000, guid: 0abd6cf1c1111214dbbd2a9970c24da0, type: 2}
 --- !u!4 &1084060453
 Transform:
   m_ObjectHideFlags: 0
@@ -681,7 +951,7 @@ Transform:
   m_GameObject: {fileID: 1338684382}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: 3, z: 0}
+  m_LocalPosition: {x: 4, y: 3, z: 1}
   m_LocalScale: {x: 2, y: 6, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -703,6 +973,10 @@ PrefabInstance:
       propertyPath: jobManager
       value: 
       objectReference: {fileID: 1084060452}
+    - target: {fileID: 6445988041851343954, guid: a6efcbe2e8ae93b4ba16bb31d98b140f, type: 3}
+      propertyPath: stats
+      value: 
+      objectReference: {fileID: 2009302311}
     - target: {fileID: 7429816067160415509, guid: a6efcbe2e8ae93b4ba16bb31d98b140f, type: 3}
       propertyPath: jobManager
       value: 
@@ -750,7 +1024,19 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2541695845339243874, guid: a6efcbe2e8ae93b4ba16bb31d98b140f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2009302311}
+    - targetCorrespondingSourceObject: {fileID: 2541695845339243874, guid: a6efcbe2e8ae93b4ba16bb31d98b140f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2009302310}
+    - targetCorrespondingSourceObject: {fileID: 2541695845339243874, guid: a6efcbe2e8ae93b4ba16bb31d98b140f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2009302309}
+    - targetCorrespondingSourceObject: {fileID: 2541695845339243874, guid: a6efcbe2e8ae93b4ba16bb31d98b140f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2009302308}
   m_SourcePrefab: {fileID: 100100000, guid: a6efcbe2e8ae93b4ba16bb31d98b140f, type: 3}
 --- !u!4 &1507809279 stripped
 Transform:
@@ -870,6 +1156,91 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2009302300 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2541695845339243874, guid: a6efcbe2e8ae93b4ba16bb31d98b140f, type: 3}
+  m_PrefabInstance: {fileID: 1507809278}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2009302303 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4057963153048435572, guid: a6efcbe2e8ae93b4ba16bb31d98b140f, type: 3}
+  m_PrefabInstance: {fileID: 1507809278}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009302300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72a57c7bf6132c742985f390df158001, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectAlpha.PlayerClimb
+--- !u!114 &2009302304 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6445988041851343954, guid: a6efcbe2e8ae93b4ba16bb31d98b140f, type: 3}
+  m_PrefabInstance: {fileID: 1507809278}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009302300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b65756da61ddf4dab8ddeb437dc459, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectAlpha.PlayerMovement
+--- !u!114 &2009302308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009302300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed501adab9a2a82449ef9d0e15a48979, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectAlpha.AugmentEquipper
+  stats: {fileID: 2009302311}
+  equippedAugments: []
+--- !u!114 &2009302309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009302300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f72132c4e6645f4ca44910103cbc01c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectAlpha.StaminaController
+  stats: {fileID: 2009302311}
+  movement: {fileID: 2009302304}
+  climb: {fileID: 2009302303}
+  regenDelay: 1
+  sprintRecoverThreshold: 15
+--- !u!114 &2009302310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009302300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb1aa84e3e5c58041abceb392fba94f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectAlpha.HealthController
+  stats: {fileID: 2009302311}
+--- !u!114 &2009302311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009302300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75b7a1941781d5a4c90c6e0b1e1f11a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectAlpha.CharacterStats
+  jobManager: {fileID: 1084060452}
+  baseStatsWhenNoJob: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -881,3 +1252,6 @@ SceneRoots:
   - {fileID: 1507809278}
   - {fileID: 1084060453}
   - {fileID: 85501314}
+  - {fileID: 818079471}
+  - {fileID: 1076978287}
+  - {fileID: 618375696}
