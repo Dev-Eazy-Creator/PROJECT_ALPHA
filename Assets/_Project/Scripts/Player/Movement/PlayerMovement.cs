@@ -10,6 +10,8 @@ namespace ProjectAlpha
         [SerializeField] private PlayerMotor motor;
         [SerializeField] private PlayerClimb climb;
         [SerializeField] private PlayerJump jump;
+        [Tooltip("Optional. When assigned, base walk speed comes from the MoveSpeed attribute instead of the field below.")]
+        [SerializeField] private CharacterStats stats;
         [SerializeField] private float MoveSpeed = 2.5f;
         [Tooltip("Speed multiplier applied while sprinting (hold Shift / L3).")]
         [SerializeField] private float SprintMultiplier = 2f;
@@ -122,7 +124,9 @@ namespace ProjectAlpha
             // Sidescroller: horizontal movement is locked to the X axis only.
             // Vertical input (W/S, Left Stick Y) is reserved for climbing — it must not drive world Z.
             // The X component still carries analog stick strength (0..1); WASD is normalized to 1.
-            float speed = IsSprinting ? MoveSpeed * SprintMultiplier : MoveSpeed;
+            // Base speed comes from the MoveSpeed attribute when stats are wired; otherwise the raw field.
+            float baseSpeed = stats != null ? stats.GetValue(AttributeType.MoveSpeed) : MoveSpeed;
+            float speed = IsSprinting ? baseSpeed * SprintMultiplier : baseSpeed;
             Vector3 direction = new Vector3(moveInput.x, 0f, 0f);
             motor.AddVelocity(direction * speed);
         }

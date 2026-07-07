@@ -6,6 +6,8 @@ using UnityEngine.Serialization;
 
 namespace ProjectAlpha
 {
+    // Runs first so CurrentJob is set in Awake before CharacterStats (-90) builds its AttributeSet.
+    [DefaultExecutionOrder(-100)]
     public class JobManager : MonoBehaviour
     {
         [FormerlySerializedAs("allVocations")]
