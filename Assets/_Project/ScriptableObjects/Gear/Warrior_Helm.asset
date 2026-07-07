@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e1ea5bd6893c3f4a929bf8523686947, type: 3}
+  m_Name: Warrior_Helm
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectAlpha.ArmorData
+  DisplayName: Warrior Helm
+  Icon: {fileID: 0}
+  Description:
+  DropWeight: 1
+  Slot: 2
+  AllowedJobs:
+  - 0
+  Modifiers:
+  - Attribute: 0
+    Type: 0
+    BaseValue: 20
+    PerLevelValue: 5
+  - Attribute: 7
+    Type: 0
+    BaseValue: 8
+    PerLevelValue: 2
+  MaxUpgradeLevel: 3

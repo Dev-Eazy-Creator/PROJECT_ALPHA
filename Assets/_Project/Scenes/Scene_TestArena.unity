@@ -1085,6 +1085,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1142546021 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8646991876491822426, guid: a6efcbe2e8ae93b4ba16bb31d98b140f, type: 3}
+  m_PrefabInstance: {fileID: 1507809278}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1338684382
 GameObject:
   m_ObjectHideFlags: 0
@@ -1493,6 +1498,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2541695845339243874, guid: a6efcbe2e8ae93b4ba16bb31d98b140f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2009302308}
+    - targetCorrespondingSourceObject: {fileID: 2541695845339243874, guid: a6efcbe2e8ae93b4ba16bb31d98b140f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2009302312}
   m_SourcePrefab: {fileID: 100100000, guid: a6efcbe2e8ae93b4ba16bb31d98b140f, type: 3}
 --- !u!4 &1507809279 stripped
 Transform:
@@ -1576,7 +1584,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -1714,6 +1722,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1828993684
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1828993685}
+  m_Layer: 0
+  m_Name: DebugEquipmentTester
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1828993685
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828993684}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1063.9955, y: 223.8124, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2009302300 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2541695845339243874, guid: a6efcbe2e8ae93b4ba16bb31d98b140f, type: 3}
@@ -1803,6 +1842,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProjectAlpha.CharacterStats
   jobManager: {fileID: 1084060452}
   baseStatsWhenNoJob: []
+--- !u!114 &2009302312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009302300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bb9da70cc8059d4ca307b6a5e3b8fab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectAlpha.EquipmentManager
+  stats: {fileID: 2009302311}
+  jobManager: {fileID: 1084060452}
+  weaponAnchor: {fileID: 1142546021}
+  startingEquipment:
+  - {fileID: 11400000, guid: c9ea79f571d39fd42912710f65d5d986, type: 2}
+  - {fileID: 11400000, guid: 56dbfb820e339004ab6965c983a87051, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1817,5 +1874,6 @@ SceneRoots:
   - {fileID: 818079471}
   - {fileID: 1076978287}
   - {fileID: 618375696}
+  - {fileID: 1828993685}
   - {fileID: 1594545748}
   - {fileID: 1387226554}

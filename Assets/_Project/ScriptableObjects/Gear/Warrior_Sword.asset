@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dedbc8f078b349c44b02eb6a1b3e6ff2, type: 3}
+  m_Name: Warrior_Sword
+  m_EditorClassIdentifier: Assembly-CSharp::ProjectAlpha.WeaponData
+  DisplayName: Warrior Sword
+  Icon: {fileID: 0}
+  Description:
+  DropWeight: 1
+  Slot: 0
+  AllowedJobs:
+  - 0
+  Modifiers:
+  - Attribute: 5
+    Type: 0
+    BaseValue: 12
+    PerLevelValue: 4
+  MaxUpgradeLevel: 3
+  Class: 0
+  DamageType: 0
+  StaggerPower: 20
+  KnockdownPower: 10
+  WeaponPrefab: {fileID: 6074973716218679444, guid: d94f616eb8e89fc4c9b23dd9b158e096, type: 3}
