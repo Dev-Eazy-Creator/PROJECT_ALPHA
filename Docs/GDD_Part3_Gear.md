@@ -5,15 +5,16 @@
 Continues from Parts 1–2. Same rules: implement sections in order, do not skip, do not
 invent architecture not covered here. If something is ambiguous, stop and ask.
 
-> **STATUS: DRAFT for ratification.** This spec was authored collaboratively from the design
-> decisions below. Review it, edit anything you disagree with, then it becomes the locked spec.
-> Points explicitly flagged **[RATIFY]** are places a real decision was made that you should confirm.
+> **STATUS: DRAFT for ratification.** Authored collaboratively from the decisions below. Review it,
+> edit anything, then it becomes the locked spec. **[RATIFY]** marks decisions to confirm; **[TBD]**
+> marks things intentionally left open.
 
 This milestone builds the **Gear system** — the game's *primary power source* — on top of the
 Part 2 stat keystone. Gear is **job-locked**, **DD1-style**, **upgradeable**, and applies
-`StatModifier`s through the exact path augments already use. There is **no inventory UI, no loot/drop
-system, and no material economy** yet — only the equip / upgrade / stat plumbing, proven debug-driven
-(equip an item → watch stats change → deal more damage), exactly how Part 2 proved the damage path.
+`StatModifier`s through the exact path augments already use. **No inventory UI, no loot/drop system,
+no material economy, no skill system, and no elemental system** yet — only the equip / upgrade / stat
+plumbing, proven debug-driven (equip an item → watch stats change → deal more damage), exactly how
+Part 2 proved the damage path.
 
 ---
 
@@ -41,18 +42,19 @@ removes `StatModifier`s and lets `Attribute` do the math.
 1. **Gear is the primary power source** — it supplies the bulk of offensive and defensive numbers.
 2. **Job-locked** — every piece declares which job(s) may use it. A Warrior cannot wear a mage robe
    or wield a staff, and vice-versa.
-3. **DD1-faithful** — layered armor, discrete upgrade tiers, and weapons carry stagger/knockdown
-   power (a property of the weapon, not the character sheet).
+3. **DD1-style** — discrete upgrade tiers, and weapons carry stagger/knockdown power (a property of
+   the weapon, not the character sheet). **No weight / encumbrance system** (removed by design).
 4. **No rarity/quality tiers** — items have no common/rare/epic grade, no colored names, no random
    affix rolls. An item's stats are fixed by its asset (plus its upgrade level). **"Rare" means
-   rarely *dropped*** — a drop-chance value exists as data for a future loot system only.
+   rarely *dropped*** — a drop-chance value exists as data for a future loot system only. Rings are
+   the canonical rare drop (§9).
 5. **Stamina is a contested resource** — skills spend stamina, so gear stat budgets must respect the
    stamina economy. **Mage gear leans harder into stamina** (mages live on skills) than warrior gear.
 
 ---
 
 ## SECTION 2 — ATTRIBUTE MAPPING (no new attributes)
-The 12 Part 2 attributes are sufficient. **Do NOT add new attributes.** DD1 terms map onto them:
+The 12 Part 2 attributes are sufficient for Part 3. **Do NOT add new attributes.** DD1 terms map on:
 
 | DD1 / design term | This project's attribute |
 |---|---|
@@ -64,31 +66,32 @@ The 12 Part 2 attributes are sufficient. **Do NOT add new attributes.** DD1 term
 | Stamina | `MaxStamina` |
 | Poise/stagger resist | `StaggerResistance` / `KnockdownResistance` |
 
-Gear only ever touches these existing attributes via `StatModifier`s. `Weight`/`EquipLoad` remain
-**excluded** (still no consequence until dodge — see §9, §15).
+Gear only ever touches these existing attributes via `StatModifier`s. **Elemental damage types
+(Fire/Holy/Frost…) and elemental resistances are a future extension (§15) — not in Part 3**, so no
+new attributes are added now.
 
 ---
 
 ## SECTION 3 — EQUIPMENT SLOTS
 `Assets/_Project/Scripts/Gear/EquipmentSlot.cs`
 ```csharp
-// Fixed equipment slots. DD1-style layered armor. Do not reorder (save data references these).
+// Fixed equipment slots. Do not reorder (save data references these).
 public enum EquipmentSlot
 {
     PrimaryWeapon,
     SecondaryWeapon,   // shield / off-hand; empty for two-handed weapons
     Head,
-    ChestOuter,        // outer torso armor
-    ChestInner,        // inner clothing layer (DD1 layered torso)
-    Arms,
+    Chest,
+    Gloves,
     Legs,
+    Boots,
     Cape,
-    Ring1,             // jewelry
-    Ring2
+    Ring,              // single rare accessory — see §9
+    Amulet             // single accessory — effect [TBD] (§9)
 }
 ```
-**[RATIFY]** One layered torso (Outer + Inner) captures DD1's layering without exploding the slot
-count. If you want legs layered too (DD1 does), add `LegsInner`. Rings are two slots of one category.
+Ten slots: two weapon, six armor (Head, Chest, Gloves, Legs, Boots, Cape), two accessory
+(Ring, Amulet). No armor layering; Boots are separate from Legs; one Ring and one Amulet.
 
 ---
 
@@ -118,14 +121,12 @@ public class ItemData : ScriptableObject
 {
     public string DisplayName;
     public Sprite Icon;                       // for the future inventory UI
-    [Tooltip("Kilograms-ish; summed into EquipLoad later. No movement effect in Part 3.")]
-    public float Weight = 1f;
     [TextArea] public string Description;
     [Tooltip("Drop-chance weight for the FUTURE loot system. Data-only in Part 3; nothing reads it.")]
     public float DropWeight = 1f;
 }
 
-// Anything you can equip into a slot.
+// Anything you can equip into a slot (armor and accessories).
 [CreateAssetMenu(fileName = "New_Equipment", menuName = "Game/Gear/Equipment")]
 public class EquipmentData : ItemData
 {
@@ -140,22 +141,24 @@ public class EquipmentData : ItemData
 public class WeaponData : EquipmentData
 {
     public WeaponClass Class;                  // Sword, GreatSword, Staff, Bow, Dagger, Mace...
-    public DamageType DamageType;              // Physical / Magick
+    public DamageType DamageType;              // Physical / Magick (elemental added later — §15)
     public float StaggerPower;                 // consumed by combat later; authored now
     public float KnockdownPower;
     public GameObject WeaponPrefab;            // spawned at the Part 1 WeaponAnchor
+    // FUTURE (§15): an elemental Enhancement (Fire/Holy/Frost...) — do not add in Part 3.
 }
 
 [CreateAssetMenu(fileName = "New_Armor", menuName = "Game/Gear/Armor")]
 public class ArmorData : EquipmentData { }     // no extra fields; distinct type + menu for clarity
 ```
-Enums (`Gear/WeaponClass.cs`, `Gear/DamageType.cs`):
+Rings and Amulets use plain `EquipmentData` with `Slot = Ring/Amulet` for now — their signature
+effects are deferred (§9), so no dedicated subclasses yet. Enums (`Gear/WeaponClass.cs`,
+`Gear/DamageType.cs`):
 ```csharp
 public enum WeaponClass { Sword, GreatSword, Dagger, Mace, Staff, Bow }   // extend as needed
-public enum DamageType { Physical, Magick }
+public enum DamageType  { Physical, Magick }   // FUTURE: Fire, Holy, Frost, ... (§15)
 ```
-**[RATIFY]** `MaxUpgradeLevel = 3` mirrors DD1's three stars (Dragonforging/Rarification tiers are
-deferred, §8). Adjust freely.
+**[RATIFY]** `MaxUpgradeLevel = 3` mirrors DD1's three stars (Dragonforging/Rarification deferred, §8).
 
 ---
 
@@ -187,7 +190,7 @@ public class ItemInstance
 `Assets/_Project/Scripts/Gear/EquipmentManager.cs`
 ```
 // Holds equipped items per slot, applies/removes their stat modifiers, enforces job-locks,
-// spawns weapon visuals, and tracks total weight. The single entry point for equip/unequip.
+// and spawns weapon visuals. The single entry point for equip/unequip/upgrade.
 ```
 **Serialized:** `CharacterStats stats`, `JobManager jobManager`, `Transform weaponAnchor`.
 
@@ -197,13 +200,12 @@ public class ItemInstance
   non-empty and does not contain `jobManager.CurrentJob.Job` (job-lock). Extendable later.
 - `bool Equip(ItemInstance item)` — if `CanEquip`: unequip the current occupant of `item.Data.Slot`;
   store it; add each of `item.BuildModifiers()` to `stats.Attributes`; if `WeaponData` in a weapon
-  slot, spawn `WeaponPrefab` under `weaponAnchor` (see integration below); recompute weight; fire
-  `OnEquipmentChanged`. Return success. On failure log the `reason` (info) and change nothing.
+  slot, spawn `WeaponPrefab` under `weaponAnchor` (see integration below); fire `OnEquipmentChanged`.
+  Return success. On failure, log the `reason` (info) and change nothing.
 - `void Unequip(EquipmentSlot slot)` — `stats.Attributes.RemoveAllModifiersFromSource(instance)`;
-  clear slot; despawn weapon if any; recompute weight; fire event.
+  clear slot; despawn weapon if any; fire event.
 - `void UpgradeEquipped(EquipmentSlot slot)` — bump the instance's level, then remove+re-add its
   modifiers so the higher values apply live. (No cost in Part 3 — see §8.)
-- `float TotalWeight { get; }` — sum of equipped `Data.Weight`. Groundwork only (§9).
 - `event Action<EquipmentSlot, ItemInstance> OnEquipmentChanged`.
 - **On `JobManager.OnJobChanged`:** re-validate every equipped item; any now-disallowed by the new
   job is **auto-unequipped** (modifiers removed, weapon despawned) and logged. **[RATIFY]** (no
@@ -223,49 +225,68 @@ change is disabled (leave the script, stop it spawning), and `JobData.WeaponPref
 - Part 3 implements **the level, the stat scaling, and live re-apply** (via `UpgradeEquipped`).
 - **Deferred:** material/currency costs, the blacksmith UI, and the **Dragonforged / Rarified**
   bonus tiers (DD1/Dark Arisen). In Part 3, upgrading is a debug/API call with no cost.
-- **[RATIFY]** Model Dragonforging later as an extra flag/tier on `ItemInstance` that adds a bonus
-  on top of the max upgrade level.
 
 ---
 
-## SECTION 9 — WEIGHT (groundwork only)
-- Each `ItemData.Weight`; `EquipmentManager.TotalWeight` sums equipped weights and fires on change.
-- **No movement, dodge, or stamina penalty in Part 3.** `Weight`/`EquipLoad` become real attributes
-  and drive movement/dodge tiers only alongside the dodge/roll system (§15). Do **not** add
-  `Weight`/`EquipLoad` to `AttributeType` now.
+## SECTION 9 — ACCESSORIES: RINGS & AMULETS (effects deferred)
+Two accessory slots exist and accept equipment (job-lock + upgrade apply normally), but their
+*signature* effects depend on systems that don't exist yet, so they are **data-only in Part 3** —
+exactly like Part 2's behavioral augments.
+
+**Rings (rare):**
+- A ring grants **+1 rank to one skill**, letting a skill maxed at its job cap (e.g. 2/2) reach a
+  hidden **Rank 3**. The boosted skill is **rolled randomly when the ring drops**.
+- This needs the **skill system** (skill ranks + the hidden tier) and the **loot system** (the random
+  roll on drop) — both future. In Part 3, rings are **equippable** (proving the slot, equip flow, and
+  job-lock) but grant **no functional bonus**. `EquipmentData` for a ring may carry `Modifiers` as a
+  stopgap if desired, but the intended design is skill-rank boosts, not raw stats.
+- When the skill system lands, a `RingData : EquipmentData` gains a boosted-skill reference and the
+  skill system reads it. Rings are the canonical **rare drop** (low `DropWeight`).
+
+**Amulets [TBD]:**
+- Effect undecided. Candidates to pick from later: (a) **elemental resistances** accessory (dovetails
+  with the coming resistance system), (b) a **passive/behavioral** effect (à la DD1 augments), or
+  (c) generic **stat modifiers**. For Part 3 the Amulet slot exists and accepts `EquipmentData`; its
+  distinctive effect is designed in a later part.
+
+No rarity tiers or random stat rolls on accessories; "rare" = a low `DropWeight` only.
 
 ---
 
 ## SECTION 10 — RARE DROPS (data-only)
-- `ItemData.DropWeight` is authorable but **read by nothing** in Part 3. It exists so the future loot
-  system can weight drop tables (a lower weight = a rarer drop).
+- `ItemData.DropWeight` is authorable but **read by nothing** in Part 3. The future loot system uses
+  it to weight drop tables (lower weight = rarer). Rings especially are rare.
 - **No rarity tiers, no quality colors, no random stat rolls.** Reaffirming pillar #4.
 
 ---
 
 ## SECTION 11 — EXAMPLE ITEMS TO AUTHOR
-Enough to prove job-locking + per-job stat focus + weapons + upgrades. Numbers are starting points.
+Enough to prove job-locking + per-job stat focus + weapons + upgrades + accessory equipping.
+Numbers are starting points.
 
 **Warrior set** (`AllowedJobs = [Warrior]`) — focus: Health, Stamina, physical damage reduction:
 | Asset | Slot | Modifiers (Base, +PerLevel) |
 |---|---|---|
 | `Warrior_Helm` | Head | MaxHealth +20 (+5), PhysicalDefense +8 (+2) |
-| `Warrior_Chest` | ChestOuter | MaxHealth +40 (+10), PhysicalDefense +15 (+3), StaggerResistance +10 |
+| `Warrior_Chest` | Chest | MaxHealth +40 (+10), PhysicalDefense +15 (+3), StaggerResistance +10 |
+| `Warrior_Gloves` | Gloves | PhysicalDefense +6 (+2), PhysicalAttack +4 (+1) |
 | `Warrior_Greaves` | Legs | PhysicalDefense +10 (+2), MaxStamina +15 (+5) |
+| `Warrior_Boots` | Boots | PhysicalDefense +6 (+2), MaxStamina +10 (+3) |
 | `Warrior_Sword` | PrimaryWeapon | **WeaponData** Class=Sword, DamageType=Physical, PhysicalAttack +12 (+4), StaggerPower 20, KnockdownPower 10 |
 
-**Mage-oriented set** (`AllowedJobs = [Job2]` — the future "Mage" index) — focus: Stamina (skills),
-Magick:
+**Mage-oriented set** (`AllowedJobs = [Job2]` — the future "Mage" index) — focus: Stamina (skills), Magick:
 | Asset | Slot | Modifiers (Base, +PerLevel) |
 |---|---|---|
 | `Mage_Hat` | Head | MaxStamina +20 (+5), MagickDefense +8 (+2) |
-| `Mage_Robe` | ChestOuter | MaxStamina +40 (+10), MagickDefense +12 (+3), MaxHealth +10 |
+| `Mage_Robe` | Chest | MaxStamina +40 (+10), MagickDefense +12 (+3), MaxHealth +10 |
 | `Mage_Staff` | PrimaryWeapon | **WeaponData** Class=Staff, DamageType=Magick, MagickAttack +15 (+5) |
 
+**Accessory** (any job, to prove the slot): `Ring_Test` (Slot=Ring, no modifiers — effect deferred).
+
 Note the deliberate asymmetry: warrior chest is Health/Defense-heavy; mage chest is Stamina-heavy
-(skills). **[RATIFY]** Only the **Warrior** job is authored (Part 2), so the Mage set exists mainly
-to prove the **job-lock rejects it on a Warrior**. To see the Mage set *apply*, temporarily author a
-throwaway `Job2` `JobData` (or verify via unit-style debug); no permanent asset required.
+(skills). **[RATIFY]** Only the **Warrior** job is authored (Part 2), so the Mage set exists mainly to
+prove the **job-lock rejects it on a Warrior**. To see the Mage set *apply*, temporarily author a
+throwaway `Job2` `JobData`; no permanent asset required.
 
 ---
 
@@ -277,10 +298,11 @@ P-key (reads `Keyboard.current`, not the Input Action asset).
 - On each action, log the affected attribute before/after so the pipeline is visible.
 - **Key proof (ties to Part 2):** equip `Warrior_Sword` → `PhysicalAttack` rises → the existing
   **P-key damage test deals more damage**. Equip `Warrior_Chest` → `MaxHealth` rises → the **HUD
-  health bar's max grows**. Upgrade the chest → it grows again. Unequip → everything reverts.
-  Try to equip `Mage_Staff` on the Warrior → **rejected, logged, no stat change.**
+  health bar's max grows**. Upgrade the chest → it grows again. Unequip → everything reverts. Try to
+  equip `Mage_Staff` on the Warrior → **rejected, logged, no stat change.** Equip `Ring_Test` →
+  slot fills, **no stat effect (deferred), no error.**
 
-This reuses Part 2's `DebugCombatTester` and the HUD as the readout — no new debug UI needed.
+Reuses Part 2's `DebugCombatTester` and the HUD as the readout — no new debug UI needed.
 
 ---
 
@@ -309,12 +331,12 @@ This reuses Part 2's `DebugCombatTester` and the HUD as the readout — no new d
 **Upgrade**
 - [ ] Upgrading an equipped item raises its contribution to `Base + Level*PerLevel`, applied live,
       clamped to `MaxUpgradeLevel`.
-**Weight**
-- [ ] `TotalWeight` equals the sum of equipped item weights and updates on equip/unequip.
-      (No movement effect — intentional this milestone.)
 **Weapon**
 - [ ] Equipping a `WeaponData` spawns its prefab at the `WeaponAnchor`; swapping/unequipping
       replaces/despawns it. Melee weapon boosts `PhysicalAttack`; staff boosts `MagickAttack`.
+**Accessories**
+- [ ] A Ring/Amulet can be equipped into its slot (respecting job-lock); its deferred effect does
+      nothing yet and logs/produces no error.
 **Data-only**
 - [ ] `DropWeight` is authorable; no system reads it; no rarity tiers exist anywhere.
 **Code quality (carried)**
@@ -324,13 +346,21 @@ This reuses Part 2's `DebugCombatTester` and the HUD as the readout — no new d
 ---
 
 ## SECTION 15 — WHAT LATER PARTS COVER (do not implement now)
-- **Inventory & equipment UI** — a bag + equip screen on the HUD/uGUI foundation; drag/equip,
-  compare, upgrade at a station.
-- **Loot & drop system** — uses `DropWeight`; enemy/chest drop tables; rare drops. (No rarity tiers.)
-- **Weight → EquipLoad tiers** — added *with* the dodge/roll + combat milestone; introduces the
-  `Weight`/`EquipLoad` attributes and the movement/dodge speed tiers then.
+- **Inventory & equipment UI** — a bag + equip screen on the HUD/uGUI foundation; equip, compare,
+  upgrade at a station.
+- **Loot & drop system** — uses `DropWeight`; enemy/chest drop tables; rare drops; the **random roll**
+  that picks a ring's boosted skill.
+- **Skill system** — skill ranks, the hidden **Rank 3**, and reading a **ring's +1 skill-rank** bonus.
+  A `RingData` gains its boosted-skill reference here.
+- **Amulet effect** — decide among elemental resistances / passive effect / stat modifiers ([TBD], §9).
+- **Elemental system** — weapon **Enhancements** (Fire/Holy/Frost damage) and gear **Resistances**
+  (Fire/Frost resist). Extends `DamageType` and introduces resistance data (new attributes or a
+  resistance sub-system). Not in Part 3.
 - **Blacksmith / economy** — material + currency costs for upgrades; **Dragonforged / Rarified** tiers.
 - **Full combat** — consumes weapon `StaggerPower`/`KnockdownPower` and skills spending stamina;
   replaces the P-key with real hitboxes calling `Damageable`.
 - **Save/Load** — equipped gear, upgrade levels, and inventory contents.
 - **Character creator** — starting attributes layered on job `BaseStats` + starting gear.
+
+*(Explicitly NOT planned: item weight / encumbrance / EquipLoad — removed by design; rarity/quality
+tiers; random stat affixes.)*
