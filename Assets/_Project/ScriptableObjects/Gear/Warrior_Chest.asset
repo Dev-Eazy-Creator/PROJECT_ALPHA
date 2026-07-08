@@ -14,11 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProjectAlpha.ArmorData
   DisplayName: Warrior Chestplate
   Icon: {fileID: 0}
-  Description:
+  Description: 
   DropWeight: 1
   Slot: 3
-  AllowedJobs:
-  - 0
+  AllowedJobs: 00000000
   Modifiers:
   - Attribute: 0
     Type: 0
@@ -33,3 +32,7 @@ MonoBehaviour:
     BaseValue: 10
     PerLevelValue: 0
   MaxUpgradeLevel: 3
+  VisualPrefabs:
+  - {fileID: 6516096932341757136, guid: c615ba4697a401a45a5b9c6de5fd1909, type: 3}
+  - {fileID: 3308543678856151360, guid: 7a2b988809a5cf04b8b093b674f8811c, type: 3}
+  - {fileID: 1284202601250256628, guid: 817a45458136339458d6ed36e60f108c, type: 3}

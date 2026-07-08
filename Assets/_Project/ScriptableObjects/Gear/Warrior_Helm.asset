@@ -30,3 +30,5 @@ MonoBehaviour:
     BaseValue: 8
     PerLevelValue: 2
   MaxUpgradeLevel: 3
+  VisualPrefabs:
+  - {fileID: 7153983927674936428, guid: cc700f5e6b510e94397e7c6e6f639d07, type: 3}

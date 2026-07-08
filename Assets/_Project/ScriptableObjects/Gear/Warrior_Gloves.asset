@@ -14,11 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProjectAlpha.ArmorData
   DisplayName: Warrior Gauntlets
   Icon: {fileID: 0}
-  Description:
+  Description: 
   DropWeight: 1
   Slot: 4
-  AllowedJobs:
-  - 0
+  AllowedJobs: 00000000
   Modifiers:
   - Attribute: 7
     Type: 0
@@ -29,3 +28,6 @@ MonoBehaviour:
     BaseValue: 4
     PerLevelValue: 1
   MaxUpgradeLevel: 3
+  VisualPrefabs:
+  - {fileID: 855228838385838238, guid: dea62abeaac33084c8955ab34902c1ff, type: 3}
+  - {fileID: 6516096932341757136, guid: f517146268525a142b27413031ae55c7, type: 3}

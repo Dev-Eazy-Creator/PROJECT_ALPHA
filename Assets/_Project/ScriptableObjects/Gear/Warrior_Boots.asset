@@ -14,11 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProjectAlpha.ArmorData
   DisplayName: Warrior Boots
   Icon: {fileID: 0}
-  Description:
+  Description: 
   DropWeight: 1
   Slot: 6
-  AllowedJobs:
-  - 0
+  AllowedJobs: 00000000
   Modifiers:
   - Attribute: 7
     Type: 0
@@ -29,3 +28,5 @@ MonoBehaviour:
     BaseValue: 10
     PerLevelValue: 3
   MaxUpgradeLevel: 3
+  VisualPrefabs:
+  - {fileID: 4188907713916372110, guid: 16757629970b1ae4e83c7263cdbb14d1, type: 3}

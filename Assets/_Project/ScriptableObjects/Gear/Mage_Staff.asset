@@ -14,19 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProjectAlpha.WeaponData
   DisplayName: Mage Staff
   Icon: {fileID: 0}
-  Description:
+  Description: 
   DropWeight: 1
   Slot: 0
-  AllowedJobs:
-  - 1
+  AllowedJobs: 01000000
   Modifiers:
   - Attribute: 6
     Type: 0
     BaseValue: 15
     PerLevelValue: 5
   MaxUpgradeLevel: 3
+  VisualPrefabs: []
   Class: 4
   DamageType: 1
   StaggerPower: 5
   KnockdownPower: 0
-  WeaponPrefab: {fileID: 0}
+  WeaponPrefab: {fileID: 1481618716081353886, guid: 6db32655bb91f6542a939f71124e8bc4, type: 3}

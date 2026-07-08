@@ -14,11 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProjectAlpha.ArmorData
   DisplayName: Warrior Greaves
   Icon: {fileID: 0}
-  Description:
+  Description: 
   DropWeight: 1
   Slot: 5
-  AllowedJobs:
-  - 0
+  AllowedJobs: 00000000
   Modifiers:
   - Attribute: 7
     Type: 0
@@ -29,3 +28,6 @@ MonoBehaviour:
     BaseValue: 15
     PerLevelValue: 5
   MaxUpgradeLevel: 3
+  VisualPrefabs:
+  - {fileID: 1723758734373863965, guid: 8c983856eb4664d4ea2e61ad31685f22, type: 3}
+  - {fileID: 4394680607923329185, guid: 1de10cad198342d42838d35ad9f8d6f4, type: 3}

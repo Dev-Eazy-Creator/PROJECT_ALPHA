@@ -14,19 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProjectAlpha.WeaponData
   DisplayName: Warrior Sword
   Icon: {fileID: 0}
-  Description:
+  Description: 
   DropWeight: 1
   Slot: 0
-  AllowedJobs:
-  - 0
+  AllowedJobs: 00000000
   Modifiers:
   - Attribute: 5
     Type: 0
     BaseValue: 12
     PerLevelValue: 4
   MaxUpgradeLevel: 3
+  VisualPrefabs: []
   Class: 0
   DamageType: 0
   StaggerPower: 20
   KnockdownPower: 10
-  WeaponPrefab: {fileID: 6074973716218679444, guid: d94f616eb8e89fc4c9b23dd9b158e096, type: 3}
+  WeaponPrefab: {fileID: 4903534213670738682, guid: dfe0c100919a1014982a6bb17b6d5114, type: 3}
